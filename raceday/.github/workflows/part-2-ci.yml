@@ -1,0 +1,50 @@
+name: RaceDay Part 2 API CI
+
+on:
+  push:
+  pull_request:
+    branches: [ main, master, part-2 ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Validate repository structure
+        run: |
+          set -euo pipefail
+          test -f README.md
+          test -f RaceDay.sln
+          test -f src/RaceDay.Api/RaceDay.Api.csproj
+          test -f src/RaceDay.Api/Data/RaceDayDbContext.cs
+          test -f tests/RaceDay.Api.Tests/RaceDay.Api.Tests.csproj
+          test -f docs/part-1-api-endpoint-plan.md
+          test -f docs/part-1-raceday-schema.sql
+          test -f docs/part-2-implementation-notes.md
+          grep -qi "Organiser" README.md
+          grep -qi "Participant" README.md
+          echo "Part 2 structure OK"
+
+      - name: Restore
+        run: dotnet restore RaceDay.sln
+
+      - name: Build
+        run: dotnet build RaceDay.sln --configuration Release --no-restore
+
+      - name: Run unit tests
+        run: dotnet test RaceDay.sln --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=raceday-tests.trx"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: raceday-test-results
+          path: '**/TestResults/*.trx'

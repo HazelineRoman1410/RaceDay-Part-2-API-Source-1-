@@ -1,0 +1,19 @@
+name: RaceDay Part 1 Validation
+on:
+  push:
+  pull_request:
+jobs:
+  validate-part-1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Part 1 handoff files
+        run: |
+          set -euo pipefail
+          test -d docs
+          test -f docs/part-1-complete.html
+          test -f docs/part-1-api-endpoint-plan.md
+          test -f docs/part-1-raceday-schema.sql
+          grep -qi RaceDay README.md
+          grep -qi Organiser README.md
+          grep -qi Participant README.md

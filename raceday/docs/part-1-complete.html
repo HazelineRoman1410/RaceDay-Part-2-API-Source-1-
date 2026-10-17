@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- skill:chrome -->
+<style>
+/* Credit line — bottom-right */
+.design-ui-credit {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  font: 11px/1 system-ui, sans-serif;
+  color: rgba(128,128,128,0.5);
+  pointer-events: none;
+  z-index: 2147483647;
+  transition: opacity 0.4s ease;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+/* Hide chrome on touch devices */
+@media (hover: none) {
+  .design-ui-credit { display: none; }
+}
+
+/* Print fixes */
+@media print {
+  * {
+    transition: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+  }
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .design-ui-credit { display: none !important; }
+}
+
+</style>
+<script>
+(function () {
+    // Design-ui pages are single compositions, so the whole body is editable.
+    function markEditable() {
+        document.body.classList.add('artifact-editable');
+    }
+
+    // Credit badge with idle-fade. Hover devices only.
+    function initChromeUI() {
+        if (!matchMedia('(hover: hover)').matches) return;
+
+        var credit = document.createElement('div');
+        credit.className = 'design-ui-credit';
+        credit.setAttribute('aria-hidden', 'true');
+        credit.innerHTML = '\u{1F49C} by ClickUp Brain';
+        document.body.appendChild(credit);
+
+        var timer = null;
+        var fade = function (out) { credit.style.opacity = out ? '0' : ''; };
+        fade(true);
+        var show = function () {
+            fade(false);
+            clearTimeout(timer);
+            timer = setTimeout(function () { fade(true); }, 3000);
+        };
+        document.addEventListener('mousemove', show);
+        show();
+    }
+
+    function init() {
+        markEditable();
+        initChromeUI();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+</script>
+<!-- /skill:chrome -->
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RaceDay Part 1 Complete Submission Pack</title>
+<style>
+:root{--ink:oklch(23% .025 45);--muted:oklch(49% .03 45);--paper:oklch(97% .018 78);--surface:oklch(99% .012 78);--line:oklch(86% .035 70);--orange:oklch(62% .18 48);--orange-dark:oklch(43% .13 44);--teal:oklch(57% .11 178);--green:oklch(58% .14 150)}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:1250px;margin:auto;padding:28px 26px 80px}header{padding:42px 0 34px;border-bottom:1px solid var(--line)}.eyebrow{font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;font-weight:800;color:var(--orange-dark)}h1{font-size:clamp(3rem,7vw,6.5rem);line-height:.94;letter-spacing:-.07em;max-width:900px;margin:14px 0 20px}h2{font-size:2rem;letter-spacing:-.04em;margin:0 0 12px}h3{margin:0 0 9px}p{max-width:75ch;color:var(--muted)}section{padding:48px 0;border-bottom:1px solid var(--line)}.section{display:flex;gap:24px;align-items:start;justify-content:space-between;margin-bottom:24px}.num{color:var(--orange);font-weight:900}.panel{background:var(--surface);border:1px solid var(--line);padding:20px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}.span4{grid-column:span 4}.span6{grid-column:span 6}.span12{grid-column:span 12}table{width:100%;border-collapse:collapse;background:var(--surface);font-size:.86rem}th,td{text-align:left;vertical-align:top;padding:11px 9px;border-bottom:1px solid var(--line)}th{background:oklch(92% .045 67);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}.route{font-weight:800;color:var(--orange-dark)}code{background:oklch(93% .025 75);padding:2px 5px}pre{background:oklch(25% .025 45);color:oklch(94% .018 78);padding:18px;white-space:pre-wrap;overflow:auto;font:12px/1.55 "SFMono-Regular",Consolas,monospace}.note{padding:15px 18px;background:oklch(92% .055 52);border:1px solid oklch(79% .13 50)}.check{margin:8px 0}.check b{color:var(--green)}.erd{overflow:auto;background:var(--surface);border:1px solid var(--line)}.erd svg{min-width:980px;width:100%;height:auto}.foot{padding-top:25px;color:var(--muted);font-size:.85rem}@media(max-width:800px){.grid{display:block}.section{display:block}.panel{margin-bottom:14px}main{padding:18px}}
+</style></head>
+<body><main>
+<header><div class="eyebrow">PROG6212/w · Programming 2B · Portfolio of Evidence</div><h1>RaceDay, Part 1 complete submission pack.</h1><p>This single file combines the planning, design, documentation, ERD, endpoint contract, SQL database script, CI validation, video plan, and submission checklist. Use it as the master working document, then export or copy the required sections into the lecturer’s required repository paths.</p></header>
+<section><div class="section"><div><div class="num">01 / Project frame</div><h2>Race-day confidence, not spreadsheet chaos.</h2></div><p>RaceDay manages South African running, walking, and cycling events from event creation to participant results.</p></div><div class="grid"><div class="panel span4"><h3>Organiser</h3><p>Creates and manages owned events, categories, enrolments, and official results.</p></div><div class="panel span4"><h3>Participant</h3><p>Registers, browses events, enters a category, and views personal race history.</p></div><div class="panel span4"><h3>Design language</h3><p>Warm paper, charcoal ink, race-bib orange, route-line teal, editorial hierarchy.</p></div></div></section>
+<section><div class="section"><div><div class="num">02 / Section A</div><h2>Entity Relationship Diagram</h2></div><p>All entities, attributes, keys, and cardinality are shown below. The names match the SQL schema and planned API.</p></div><div class="erd"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 650"><style>.t{font:13px Arial;fill:#302b26}.h{font:700 15px Arial;fill:#302b26}.r{stroke:#2f8b83;stroke-width:2;fill:none}.rl{font:700 12px Arial;fill:#2f8b83}.b{fill:#fffdf8;stroke:#8f3f1e;stroke-width:2}.hd{fill:#f1c48c;stroke:#8f3f1e;stroke-width:2}</style><path class="r" d="M250 130H390M540 225V255M540 390V500M690 320H820M690 270H820M690 360H820M250 500H390"/><text class="rl" x="290" y="116">1:N</text><text class="rl" x="550" y="245">1:N</text><text class="rl" x="550" y="475">N:1</text><text class="rl" x="720" y="307">1:1</text><text class="rl" x="720" y="255">1:N</text><text class="rl" x="720" y="380">1:N</text><g transform="translate(40 60)"><rect class="b" width="210" height="150"/><rect class="hd" width="210" height="34"/><text class="h" x="12" y="23">USER</text><text class="t" x="12" y="58">PK UserId</text><text class="t" x="12" y="80">FirstName, LastName</text><text class="t" x="12" y="102">Email UNIQUE</text><text class="t" x="12" y="124">PasswordHash, Role</text></g><g transform="translate(390 60)"><rect class="b" width="300" height="165"/><rect class="hd" width="300" height="34"/><text class="h" x="12" y="23">EVENT</text><text class="t" x="12" y="58">PK EventId, FK OrganiserId</text><text class="t" x="12" y="80">Name, Description, EventDate</text><text class="t" x="12" y="102">Location, DistanceKm</text><text class="t" x="12" y="124">EventType, BannerImageUrl</text><text class="t" x="12" y="146">CreatedAt</text></g><g transform="translate(390 255)"><rect class="b" width="300" height="135"/><rect class="hd" width="300" height="34"/><text class="h" x="12" y="23">CATEGORY</text><text class="t" x="12" y="58">PK CategoryId, FK EventId</text><text class="t" x="12" y="80">Name, CategoryType</text><text class="t" x="12" y="102">MinimumAge, MaximumAge</text><text class="t" x="12" y="124">DistanceKm, EntryFee</text></g><g transform="translate(40 430)"><rect class="b" width="210" height="145"/><rect class="hd" width="210" height="34"/><text class="h" x="12" y="23">ENROLMENT</text><text class="t" x="12" y="58">PK EnrolmentId</text><text class="t" x="12" y="80">FK ParticipantId</text><text class="t" x="12" y="102">FK EventId, FK CategoryId</text><text class="t" x="12" y="124">Status, EnrolledAt</text></g><g transform="translate(820 245)"><rect class="b" width="300" height="105"/><rect class="hd" width="300" height="34"/><text class="h" x="12" y="23">RESULT</text><text class="t" x="12" y="58">PK ResultId, FK EnrolmentId UNIQUE</text><text class="t" x="12" y="80">FinishTime, Position</text></g><g transform="translate(820 60)"><rect class="b" width="300" height="105"/><rect class="hd" width="300" height="34"/><text class="h" x="12" y="23">WEATHER_SNAPSHOT</text><text class="t" x="12" y="58">PK WeatherId, FK EventId</text><text class="t" x="12" y="80">ObservedAt, TemperatureC, Conditions</text></g><g transform="translate(820 430)"><rect class="b" width="300" height="105"/><rect class="hd" width="300" height="34"/><text class="h" x="12" y="23">ROUTE_POINT</text><text class="t" x="12" y="58">PK RoutePointId, FK EventId</text><text class="t" x="12" y="80">SequenceNo, Latitude, Longitude</text></g></svg></div><div class="note"><b>Alignment rule:</b> any change to an entity or relationship must be reflected in this ERD, the SQL script, EF Core entities, DTOs, and endpoint plan.</div></section>
+<section><div class="section"><div><div class="num">03 / Section B</div><h2>API endpoint plan</h2></div><p>Part 2 must implement this contract closely.</p></div><table><thead><tr><th>HTTP method</th><th>Route</th><th>Description</th><th>Role required</th><th>Request body</th><th>Expected response</th></tr></thead><tbody>
+<tr><td>POST</td><td class="route">/api/auth/register</td><td>Create an account with a validated role.</td><td>None</td><td>firstName, lastName, email, password, role, phone</td><td>201; 400 validation; 409 duplicate email</td></tr><tr><td>POST</td><td class="route">/api/auth/login</td><td>Verify credentials and create a server session.</td><td>None</td><td>email, password</td><td>200; 401 invalid credentials</td></tr><tr><td>POST</td><td class="route">/api/auth/logout</td><td>Clear current session.</td><td>Any</td><td>None</td><td>204; 401</td></tr><tr><td>GET / PUT</td><td class="route">/api/profile</td><td>Read or update the signed-in profile.</td><td>Any</td><td>name, phone, profileImageUrl</td><td>200; 400; 401</td></tr><tr><td>GET</td><td class="route">/api/events</td><td>List upcoming events with filters.</td><td>None</td><td>Query string</td><td>200 array</td></tr><tr><td>GET</td><td class="route">/api/events/{id}</td><td>Return event details and categories.</td><td>None</td><td>None</td><td>200; 404</td></tr><tr><td>POST</td><td class="route">/api/events</td><td>Create an owned event.</td><td>Organiser</td><td>name, description, eventDate, location, distanceKm, eventType</td><td>201; 400; 401; 403</td></tr><tr><td>PUT / DELETE</td><td class="route">/api/events/{id}</td><td>Update or delete an owned event.</td><td>Organiser</td><td>Event fields or none</td><td>200 / 204; 403; 404; 409</td></tr><tr><td>GET / POST</td><td class="route">/api/events/{id}/categories</td><td>List or create event categories.</td><td>GET None; POST Organiser</td><td>name, categoryType, age range, distanceKm, entryFee</td><td>200 / 201; 400; 403; 404; 409</td></tr><tr><td>POST</td><td class="route">/api/enrolments</td><td>Enrol the current participant.</td><td>Participant</td><td>eventId, categoryId</td><td>201; 400; 401; 403; 404; 409</td></tr><tr><td>GET</td><td class="route">/api/enrolments/mine</td><td>View personal enrolments.</td><td>Participant</td><td>None</td><td>200; 401; 403</td></tr><tr><td>GET</td><td class="route">/api/events/{id}/enrolments</td><td>View entrants for an owned event.</td><td>Organiser</td><td>None</td><td>200; 401; 403; 404</td></tr><tr><td>POST</td><td class="route">/api/results</td><td>Capture a finish time and position.</td><td>Organiser</td><td>enrolmentId, finishTime, position</td><td>201; 400; 403; 404; 409</td></tr><tr><td>GET</td><td class="route">/api/results/mine</td><td>View personal race history.</td><td>Participant</td><td>None</td><td>200; 401; 403</td></tr><tr><td>PUT</td><td class="route">/api/results/{id}</td><td>Correct an owned event result.</td><td>Organiser</td><td>finishTime, position</td><td>200; 403; 404</td></tr><tr><td>POST</td><td class="route">/api/events/{id}/banner</td><td>Upload a banner through API to Blob Storage.</td><td>Organiser</td><td>multipart/form-data file</td><td>200 URL; 400; 403; 413</td></tr></tbody></table></section>
+<section><div class="section"><div><div class="num">04 / Section C</div><h2>SQL Server database script</h2></div><p>Run this on a clean SQL Server instance. The final verification query checks the seeded row counts.</p></div><pre>CREATE DATABASE RaceDayDb;
+GO
+USE RaceDayDb;
+GO
+CREATE TABLE Users (
+ UserId INT IDENTITY(1,1) CONSTRAINT PK_Users PRIMARY KEY,
+ FirstName NVARCHAR(80) NOT NULL, LastName NVARCHAR(80) NOT NULL,
+ Email NVARCHAR(255) NOT NULL CONSTRAINT UQ_Users_Email UNIQUE,
+ PasswordHash NVARCHAR(255) NOT NULL,
+ Role NVARCHAR(20) NOT NULL CONSTRAINT CK_Users_Role CHECK (Role IN ('Organiser','Participant')),
+ Phone NVARCHAR(30) NULL, ProfileImageUrl NVARCHAR(500) NULL,
+ CreatedAt DATETIME2 NOT NULL CONSTRAINT DF_Users_CreatedAt DEFAULT SYSUTCDATETIME()
+);
+GO
+CREATE TABLE Events (
+ EventId INT IDENTITY(1,1) CONSTRAINT PK_Events PRIMARY KEY,
+ OrganiserId INT NOT NULL, Name NVARCHAR(160) NOT NULL,
+ Description NVARCHAR(2000) NOT NULL, EventDate DATETIME2 NOT NULL,
+ Location NVARCHAR(160) NOT NULL, DistanceKm DECIMAL(6,2) NOT NULL CONSTRAINT CK_Events_Distance CHECK (DistanceKm > 0),
+ EventType NVARCHAR(20) NOT NULL CONSTRAINT CK_Events_Type CHECK (EventType IN ('Run','Walk','Cycle')),
+ BannerImageUrl NVARCHAR(500) NULL,
+ CreatedAt DATETIME2 NOT NULL CONSTRAINT DF_Events_CreatedAt DEFAULT SYSUTCDATETIME(),
+ CONSTRAINT FK_Events_Organiser FOREIGN KEY (OrganiserId) REFERENCES Users(UserId)
+);
+GO
+CREATE TABLE Categories (
+ CategoryId INT IDENTITY(1,1) CONSTRAINT PK_Categories PRIMARY KEY,
+ EventId INT NOT NULL, Name NVARCHAR(100) NOT NULL,
+ CategoryType NVARCHAR(20) NOT NULL CONSTRAINT CK_Categories_Type CHECK (CategoryType IN ('Age','Distance')),
+ MinimumAge TINYINT NULL, MaximumAge TINYINT NULL, DistanceKm DECIMAL(6,2) NULL,
+ EntryFee DECIMAL(10,2) NOT NULL CONSTRAINT DF_Categories_Fee DEFAULT 0,
+ CONSTRAINT FK_Categories_Event FOREIGN KEY (EventId) REFERENCES Events(EventId),
+ CONSTRAINT UQ_Categories_Event_Name UNIQUE (EventId, Name),
+ CONSTRAINT CK_Categories_AgeRange CHECK (MinimumAge IS NULL OR MaximumAge IS NULL OR MinimumAge <= MaximumAge)
+);
+GO
+CREATE TABLE Enrolments (
+ EnrolmentId INT IDENTITY(1,1) CONSTRAINT PK_Enrolments PRIMARY KEY,
+ ParticipantId INT NOT NULL, EventId INT NOT NULL, CategoryId INT NOT NULL,
+ Status NVARCHAR(20) NOT NULL CONSTRAINT DF_Enrolments_Status DEFAULT 'Pending',
+ EnrolledAt DATETIME2 NOT NULL CONSTRAINT DF_Enrolments_EnrolledAt DEFAULT SYSUTCDATETIME(),
+ CONSTRAINT CK_Enrolments_Status CHECK (Status IN ('Pending','Confirmed','Cancelled')),
+ CONSTRAINT FK_Enrolments_Participant FOREIGN KEY (ParticipantId) REFERENCES Users(UserId),
+ CONSTRAINT FK_Enrolments_Event FOREIGN KEY (EventId) REFERENCES Events(EventId),
+ CONSTRAINT FK_Enrolments_Category FOREIGN KEY (CategoryId) REFERENCES Categories(CategoryId),
+ CONSTRAINT UQ_Enrolments_Participant_Event UNIQUE (ParticipantId, EventId)
+);
+GO
+CREATE TABLE Results (
+ ResultId INT IDENTITY(1,1) CONSTRAINT PK_Results PRIMARY KEY,
+ EnrolmentId INT NOT NULL CONSTRAINT UQ_Results_Enrolment UNIQUE,
+ FinishTime TIME(0) NOT NULL, Position INT NOT NULL CONSTRAINT CK_Results_Position CHECK (Position > 0),
+ CONSTRAINT FK_Results_Enrolment FOREIGN KEY (EnrolmentId) REFERENCES Enrolments(EnrolmentId)
+);
+GO
+CREATE TABLE WeatherSnapshots (
+ WeatherId INT IDENTITY(1,1) CONSTRAINT PK_WeatherSnapshots PRIMARY KEY,
+ EventId INT NOT NULL, ObservedAt DATETIME2 NOT NULL, TemperatureC DECIMAL(5,2) NOT NULL,
+ Conditions NVARCHAR(120) NOT NULL, WindKph DECIMAL(5,2) NULL, RainChancePercent TINYINT NULL,
+ CONSTRAINT FK_WeatherSnapshots_Event FOREIGN KEY (EventId) REFERENCES Events(EventId)
+);
+GO
+CREATE TABLE RoutePoints (
+ RoutePointId INT IDENTITY(1,1) CONSTRAINT PK_RoutePoints PRIMARY KEY,
+ EventId INT NOT NULL, SequenceNo INT NOT NULL, Latitude DECIMAL(9,6) NOT NULL,
+ Longitude DECIMAL(9,6) NOT NULL, ElevationMetres DECIMAL(7,2) NULL,
+ CONSTRAINT FK_RoutePoints_Event FOREIGN KEY (EventId) REFERENCES Events(EventId),
+ CONSTRAINT UQ_RoutePoints_Event_Sequence UNIQUE (EventId, SequenceNo)
+);
+GO
+INSERT INTO Users (FirstName,LastName,Email,PasswordHash,Role,Phone) VALUES
+('Thandi','Mokoena','thandi.organiser@raceday.example','REPLACE_WITH_API_HASH','Organiser','0825550101'),
+('Lebo','Naidoo','lebo.organiser@raceday.example','REPLACE_WITH_API_HASH','Organiser','0825550102'),
+('Aiden','Jacobs','aiden.participant@raceday.example','REPLACE_WITH_API_HASH','Participant','0825550103'),
+('Nandi','Dlamini','nandi.participant@raceday.example','REPLACE_WITH_API_HASH','Participant','0825550104');
+GO
+INSERT INTO Events (OrganiserId,Name,Description,EventDate,Location,DistanceKm,EventType) VALUES
+(1,'Golden Hour 10K','Sunset road race through Johannesburg South','2026-09-12T17:30:00','Johannesburg South',10,'Run'),
+(1,'Umgeni River Walk','Accessible community walk with river views','2026-09-27T07:00:00','Durban North',7.5,'Walk'),
+(2,'Cape Peninsula Cycle Classic','Coastal cycle route for club riders','2026-10-18T06:00:00','Cape Town',42,'Cycle');
+GO
+INSERT INTO Categories (EventId,Name,CategoryType,MinimumAge,MaximumAge,DistanceKm,EntryFee) VALUES
+(1,'Senior 10K','Age',20,39,10,150),(1,'Masters 10K','Age',40,99,10,150),
+(2,'Open Walk','Distance',NULL,NULL,7.5,80),(2,'Family Walk','Distance',NULL,NULL,3,50),
+(3,'Classic 42K','Distance',NULL,NULL,42,450),(3,'Novice 20K','Distance',NULL,NULL,20,280);
+GO
+INSERT INTO Enrolments (ParticipantId,EventId,CategoryId,Status) VALUES
+(3,1,1,'Confirmed'),(4,1,1,'Confirmed'),(3,2,3,'Pending'),(4,3,5,'Confirmed');
+GO
+INSERT INTO Results (EnrolmentId,FinishTime,Position) VALUES (1,'00:48:22',47),(2,'00:52:10',83);
+GO
+INSERT INTO WeatherSnapshots (EventId,ObservedAt,TemperatureC,Conditions,WindKph,RainChancePercent) VALUES
+(1,'2026-09-12T12:00:00',22.5,'Clear skies',12,5),(2,'2026-09-27T05:00:00',19,'Partly cloudy',9,20),(3,'2026-10-18T04:00:00',16.5,'Light coastal wind',18,10);
+GO
+INSERT INTO RoutePoints (EventId,SequenceNo,Latitude,Longitude,ElevationMetres) VALUES
+(1,1,-26.204103,28.047305,1650),(1,2,-26.210000,28.060000,1668),
+(2,1,-29.770000,31.050000,12),(2,2,-29.760000,31.060000,18),
+(3,1,-33.924900,18.424100,8),(3,2,-34.020000,18.350000,115);
+GO
+SELECT 'Users' TableName,COUNT(*) RowCount FROM Users UNION ALL SELECT 'Events',COUNT(*) FROM Events UNION ALL SELECT 'Categories',COUNT(*) FROM Categories UNION ALL SELECT 'Enrolments',COUNT(*) FROM Enrolments UNION ALL SELECT 'Results',COUNT(*) FROM Results UNION ALL SELECT 'WeatherSnapshots',COUNT(*) FROM WeatherSnapshots UNION ALL SELECT 'RoutePoints',COUNT(*) FROM RoutePoints;
+GO</pre><div class="note"><b>Security:</b> replace the demo hash markers with hashes generated by the application. Never store plaintext passwords.</div></section>
+<section><div class="section"><div><div class="num">05 / GitHub and CI/CD</div><h2>Part 1 workflow</h2></div><p>Save the following as <code>.github/workflows/part-1-ci.yml</code>. It validates the combined pack’s required repository files once they are copied into the repository.</p></div><pre>name: RaceDay Part 1 Validation
+on:
+  push:
+    branches: [ main, master, part-1 ]
+  pull_request:
+    branches: [ main, master, part-1 ]
+jobs:
+  validate-part-1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate required files
+        run: |
+          set -euo pipefail
+          test -d docs
+          test -f docs/raceday-erd.svg
+          test -f docs/part-1-api-endpoint-plan.md
+          test -f docs/part-1-raceday-schema.sql
+          test -f README.md
+          grep -qi RaceDay README.md
+          grep -qi Organiser README.md
+          grep -qi Participant README.md
+          echo "Part 1 validation passed."
+      - name: Validate plan content
+        run: |
+          set -euo pipefail
+          grep -q /api/auth/register docs/part-1-api-endpoint-plan.md
+          grep -q /api/events docs/part-1-api-endpoint-plan.md
+          grep -q /api/enrolments docs/part-1-api-endpoint-plan.md
+          grep -q /api/results docs/part-1-api-endpoint-plan.md
+      - name: Validate SQL content
+        run: |
+          set -euo pipefail
+          for table in Users Events Categories Enrolments Results WeatherSnapshots RoutePoints; do grep -q "CREATE TABLE $table" docs/part-1-raceday-schema.sql; done
+          grep -q "PRIMARY KEY" docs/part-1-raceday-schema.sql
+          grep -q "FOREIGN KEY" docs/part-1-raceday-schema.sql
+          grep -q "INSERT INTO Users" docs/part-1-raceday-schema.sql</pre><div class="panel"><h3>Repository layout required by the brief</h3><pre>/README.md
+/docs/raceday-erd.svg
+/docs/part-1-api-endpoint-plan.md
+/docs/part-1-raceday-schema.sql
+/docs/evidence/part-1-ci-green.png
+/.github/workflows/part-1-ci.yml</pre></div></section>
+<section><div class="section"><div><div class="num">06 / README and evidence</div><h2>Submission checklist</h2></div><p>This master file is convenient, but the brief still requires the repository paths above.</p></div><div class="grid"><div class="panel span6"><h3>Completed in this file</h3><div class="check"><b>✓</b> ERD and relationship design</div><div class="check"><b>✓</b> Full endpoint table</div><div class="check"><b>✓</b> SQL schema, constraints, and seed data</div><div class="check"><b>✓</b> CI workflow</div><div class="check"><b>✓</b> Role and security decisions</div></div><div class="panel span6"><h3>Still requires real evidence</h3><div class="check">□ Actual green GitHub Actions screenshot</div><div class="check">□ 20 meaningful commits for Part 1</div><div class="check">□ Human-recorded, unlisted YouTube video</div><div class="check">□ SQL execution verified on clean SSMS</div><div class="check">□ Copy sections into required `/docs` paths</div></div></div><div class="note"><b>Video outline:</b> introduce RaceDay and roles; explain the ERD; walk through the endpoint table; run the SQL script live in SSMS; show the green GitHub Actions run. Use your own voice, because AI-generated voices are prohibited by the brief.</div></section>
+<div class="foot">Master document for Bongie · RaceDay · PROG6212/w · Part 1.</div>
+</main></body></html>

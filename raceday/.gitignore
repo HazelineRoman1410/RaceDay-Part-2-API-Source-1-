@@ -1,0 +1,7 @@
+bin/
+obj/
+.vs/
+*.user
+TestResults/
+src/RaceDay.Api/wwwroot/uploads/
+appsettings.Development.json
