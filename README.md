@@ -62,7 +62,7 @@ CI/CD
 Evidence placeholder: add the actual green GitHub Actions screenshot as docs/evidence/part-2-ci-green.png after the workflow runs.
 
 Video
-Unlisted YouTube walkthrough:
+Unlisted YouTube walkthrough:https://youtu.be/NTgtbJ2FZIY
 
 References
 Microsoft (2024a) Session and state management in ASP.NET Core. Available at: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/app-state (Accessed: 16 October 2026).
