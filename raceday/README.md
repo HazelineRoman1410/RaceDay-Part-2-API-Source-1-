@@ -92,9 +92,7 @@ Covers registration and login (success and failure), password hashing, event man
 
 Unlisted YouTube walkthrough: **<paste your unlisted link here>**
 
-## AI usage disclosure
 
-AI tools were used to help plan the structure of this API and to draft parts of the code and documentation. I reviewed, ran, debugged and adapted all code myself, and the explanations in the video are my own.
 
 ## References
 
