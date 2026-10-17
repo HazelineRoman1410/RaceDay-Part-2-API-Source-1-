@@ -90,7 +90,7 @@ Covers registration and login (success and failure), password hashing, event man
 
 ## Video
 
-Unlisted YouTube walkthrough: **<paste your unlisted link here>**
+Unlisted YouTube walkthrough: **<https://youtu.be/NTgtbJ2FZIY>**
 
 
 
