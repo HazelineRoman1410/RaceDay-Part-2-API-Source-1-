@@ -1,0 +1,59 @@
+name: RaceDay Part 2 API CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main, master, part-2]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-build-test:
+    name: Validate, build, and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Validate required project files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f README.md
+          test -f RaceDay.sln
+          test -f src/RaceDay.Api/RaceDay.Api.csproj
+          test -f tests/RaceDay.Api.Tests/RaceDay.Api.Tests.csproj
+          test -f docs/part-1-api-endpoint-plan.md
+          test -f docs/part-1-raceday-schema.sql
+          test -f docs/part-2-implementation-notes.md
+          test -d .github/workflows
+          grep -qi "RaceDay" README.md
+          grep -qi "Organiser" README.md
+          grep -qi "Participant" README.md
+          echo "Required RaceDay files and README checks passed."
+
+      - name: Restore dependencies
+        run: dotnet restore RaceDay.sln
+
+      - name: Build solution
+        run: dotnet build RaceDay.sln --configuration Release --no-restore
+
+      - name: Run automated tests
+        run: dotnet test RaceDay.sln --configuration Release --no-build --logger "trx;LogFileName=raceday-tests.trx"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: raceday-test-results
+          path: "**/TestResults/*.trx"
+          if-no-files-found: ignore
